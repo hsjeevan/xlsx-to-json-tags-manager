@@ -45,14 +45,24 @@ export class AppComponent {
   }
 
   tagsObject: any = {};
+  tagGroupsObject: any = {};
+
   trigger() {
-    for (let obj of this.jsData.Sheet1) {
-      // console.log(obj);
+    for (let obj of this.jsData.Sheet2) {
+      console.log(obj);
       if (typeof this.tagsObject[obj["TAG Category"]] === "undefined")
         this.tagsObject[obj["TAG Category"]] = new Array();
       this.tagsObject[obj["TAG Category"]].push(obj);
+
+      // if (typeof this.tagGroupsObject[obj["TAG Group"]] === "undefined")
+      //   this.tagGroupsObject[obj["TAG Group"]] = new Array();
+      // this.tagGroupsObject[obj["TAG Group"]].indexOf(obj["TAG Category"]) === -1
+      //   ? this.tagGroupsObject[obj["TAG Group"]].push(obj["TAG Category"])
+      //   : console.log("This item already exists");
+
+      console.log(this.tagsObject);
+      console.log(this.tagGroupsObject);
     }
-    console.log(this.tagsObject);
   }
 
   setDownload(data) {
@@ -61,7 +71,10 @@ export class AppComponent {
       const el = document.querySelector("#download");
       el.setAttribute(
         "href",
-        `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.tagsObject))}`
+        `data:text/json;charset=utf-8,${encodeURIComponent(
+          JSON.stringify(this.tagsObject)
+        )}`
+        // `data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(this.tagGroupsObject))}`
       );
       el.setAttribute("download", "xlsxtojson.json");
     }, 1000);
